@@ -10,9 +10,28 @@ max_fallos = 10
 guessed_letters = []
 print("¡Bienvenido al juego de adivinanzas!")
 print("Estoy pensando en una palabra. ¿Puedes adivinar cuál es?")
-word_displayed = "_" * len(secret_word)
+dificult =  int (input("""Ingrese un nivel de dificultad : 
+                        1_ Fácil
+                        2_ Media
+                        3_ Difícil 
+                       """))
+word_displayed = ""
+if dificult == 1:
+    import esVocal
+    for letter in secret_word:
+        word_displayed += letter if esVocal.vocal(letter) else "_"
+        if esVocal.vocal(letter):
+            guessed_letters.append(letter)
+elif dificult == 2:
+    word_displayed = secret_word[0] + "_" * (len(secret_word)-2) + secret_word[len(secret_word)-1]
+    guessed_letters.append(secret_word[0])
+    guessed_letters.append(secret_word[len(secret_word)-1])
+else:
+    word_displayed = "_" * len(secret_word)
 # Mostrarla palabra parcialmente adivinada
 print(f"Palabra: {word_displayed}")
+
+
 i = 0
 while i < max_fallos:
     # Pedir al jugador que ingrese una letra
